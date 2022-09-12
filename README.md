@@ -1,14 +1,15 @@
-# FDNeRF
+# Adaptive Joint Optimization for 3D Reconstruction with Differentiable Rendering
+## Accepted by TVCG 2022
+This is the repository that contains source code for the [ADJOIN Home Page](https://adjointopti.github.io/adjoin.github.io/).
 
-This is the repository that contains source code for the [FDNeRF Home Page](https://fdnerf.github.io/).
-
-If you find FDNeRF useful for your work please cite:
+If you find ADJOIN useful for your work please cite:
 ```
-@article{zhang2022fdnerf,
-  title={FDNeRF: Few-shot Dynamic Neural Radiance Fields for Face Reconstruction and Expression Editing},
-  author={Zhang, Jingbo and Li, Xiaoyu and Wan, Ziyu and Wang, Can and Liao, Jing},
-  journal={arXiv preprint arXiv:2208.05751},
-  year={2022}
+@article{zhang2022adaptive,
+  title={Adaptive Joint Optimization for 3D Reconstruction with Differentiable Rendering},
+  author={Zhang, Jingbo and Wan, Ziyu and Liao, Jing},
+  journal={IEEE Transactions on Visualization and Computer Graphics},
+  year={2022},
+  publisher={IEEE}
 }
 ```
 
