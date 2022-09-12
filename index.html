@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="FDNeRF: Few-shot Dynamic Neural Radiance Fields for Face Reconstruction and Expression Editing">
+  <meta name="keywords" content="FDNeRF, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FDNeRF: Few-shot Dynamic Neural Radiance Fields for Face Reconstruction and Expression Editing</title>
+
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/EZ.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">FDNeRF: Few-shot Dynamic Neural Radiance Fields for Face Reconstruction and Expression Editing</h1>
+          <h1 class="title is-3">SIGGRAPH Asia 2022</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://eckertzhang.github.io/">Jingbo Zhang</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://xiaoyu258.github.io/">Xiaoyu Li</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="http://raywzy.com/">Ziyu Wan</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://cassiepython.github.io/">Can Wang</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://liaojing.github.io/html/">Jing Liao</a><sup>1</sup>,</span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>City University of Hong Kong,</span>
+            <span class="author-block"><sup>2</sup>Tencent AI Lab</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2208.05751.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2208.05751"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href="https://www.youtube.com/embed/at_42ekU0I0"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/FDNeRF/FDNeRF"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code (coming soon)</span>
+                  </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- <section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-std1">
+          <img src="./static/video/std1.gif">
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+
+<!-- Teaser. -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <div>
+        <img src="./static/images/teaser.png" alt="teaser" class="center">
+      </div>
+      <!-- <video id="teaser" autoplay muted loop playsinline height="100%">
+        <source src="https://homes.cs.washington.edu/~kpar/nerfies/videos/teaser.mp4"
+                type="video/mp4">
+      </video> -->
+      <h2 class="subtitle has-text">
+        <span class="dnerf">FDNeRF</span>, a NeRF-based method for 3D face reconstruction 
+        with only few-shot dynamic input frames (e.g., 3), enable novel view synthesis, 
+        expression editing, and video-driven reenactment tasks.
+      </h2>
+
+    </div>
+  </div>
+</section>
+
+
+<section class="hero is-light is-small">
+  <div class="hero-body" style="background-color: white;">
+    <div class="container is-max-desktop">
+      <div id="results-carousel" class="carousel results-carousel">
+
+        <div class="item" style="margin: 0px; overflow: auto; border:0px; text-align: center;">
+          <video poster="" autoplay controls muted loop playsinline height="70%" width="70%">
+            <source src="./static/video/std1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item" style="margin: 0px; overflow: auto; border:0px; text-align: center;">
+          <video poster="" autoplay controls muted loop playsinline height="70%" width="70%">
+            <source src="./static/video/std3.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item" style="margin: 0px; overflow: auto; border:0px; text-align: center;">
+          <video poster="" autoplay controls muted loop playsinline height="70%" width="70%">
+            <source src="./static/video/std6.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item" style="margin: 0px; overflow: auto; border:0px; text-align: center;">
+          <video poster="" autoplay controls muted loop playsinline height="70%" width="70%">
+            <source src="./static/video/std2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item" style="margin: 0px; overflow: auto; border:0px; text-align: center;">
+          <video poster="" autoplay controls muted loop playsinline height="70%" width="70%">
+            <source src="./static/video/std5.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+  <!-- <div class="container"> -->
+
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <!-- <div class="column is-four-fifths"> -->
+      <div class="column is-full-width">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            We propose a Few-shot Dynamic Neural Radiance Field (FDNeRF), the first NeRF-based method 
+            capable of reconstruction and expression editing of 3D faces based on a small number of 
+            dynamic images. Unlike existing dynamic NeRFs that require dense images as input and can 
+            only be modeled for a single identity, our method enables face reconstruction across different 
+            persons with few-shot inputs. Compared to state-of-the-art few-shot NeRFs designed for modeling 
+            static scenes, the proposed FDNeRF accepts view-inconsistent dynamic inputs and supports 
+            arbitrary facial expression editing, i.e., producing faces with novel expressions beyond 
+            the input ones. To handle the inconsistencies between dynamic inputs, we introduce a 
+            well-designed conditional feature warping (CFW) module to perform expression conditioned 
+            warping in 2D feature space, which is also identity adaptive and 3D constrained. As a result, 
+            features of different expressions are transformed into the target ones. We then construct a 
+            radiance field based on these view-consistent features and use volumetric rendering to 
+            synthesize novel views of the modeled faces. Extensive experiments with quantitative and 
+            qualitative evaluation demonstrate that our method outperforms existing dynamic and few-shot 
+            NeRFs on both 3D face reconstruction and expression editing tasks. Our code and model will be 
+            available upon acceptance.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pipeline. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <br />
+        <h2 class="title is-3">Pipline</h2>
+        
+        <div>
+          <img src="./static/images/pipeline_v4.png" alt="method" class="center">
+        </div>
+        <div class="content has-text-justified">
+          <p>
+            Overview of our FDNeRF. Given few-shot dynamic images, face tracking is implemented to 
+            estimate relevant expression parameters, camera poses, and intrinsic 
+            matrix in the preprocessing stage. In the CFW module, we employ feature encoding 
+            network to extract a deep feature volume for each image, and semantic 
+            mapping network to generate a motion descriptor based on source and target 
+            expression parameters. The descriptor is then used to guide the conditional warping network 
+            to produce warped feature volumes. During reconstruction, we project the 
+            query point to each image plane and extract aligned feature vectors. These vectors, 
+            along with the position and direction of the point, are fed into NeRF network to infer color 
+            and density. Finally, volumetric rendering is performed to synthesize novel view images.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Results. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="container is-max-desktop">
+        <br />
+        <h2 class="title is-3">Results</h2>
+
+        <h3 class="title is-5" style="text-align:left">3D Reconstruction</h3>
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="item" style="margin: 0px; overflow: auto; border:0px; text-align: center;">
+            <video poster="" autoplay controls muted loop playsinline height="70%" width="70%">
+              <source src="./static/video/nv3_1.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="item" style="margin: 0px; overflow: auto; border:0px; text-align: center;">
+            <video poster="" autoplay controls muted loop playsinline height="70%" width="70%">
+              <source src="./static/video/nv3_2.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="item" style="margin: 0px; overflow: auto; border:0px; text-align: center;">
+            <video poster="" autoplay controls muted loop playsinline height="70%" width="70%">
+              <source src="./static/video/nv3_3.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="item" style="margin: 0px; overflow: auto; border:0px; text-align: center;">
+            <video poster="" autoplay controls muted loop playsinline height="70%" width="70%">
+              <source src="./static/video/nv3_4.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="item" style="margin: 0px; overflow: auto; border:0px; text-align: center;">
+            <video poster="" autoplay controls muted loop playsinline height="70%" width="70%">
+              <source src="./static/video/nv3_5.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+        </div>
+
+        <br />
+        <h3 class="title is-5" style="text-align:left">Expression Editing</h3>
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="item" style="margin: 0px; overflow: auto; border:0px; text-align: center;">
+            <video poster="" autoplay controls muted loop playsinline height="70%" width="70%">
+              <source src="./static/video/exp_2.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="item" style="margin: 0px; overflow: auto; border:0px; text-align: center;">
+            <video poster="" autoplay controls muted loop playsinline height="70%" width="70%">
+              <source src="./static/video/exp_3.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="item" style="margin: 0px; overflow: auto; border:0px; text-align: center;">
+            <video poster="" autoplay controls muted loop playsinline height="70%" width="70%">
+              <source src="./static/video/exp_4.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="item" style="margin: 0px; overflow: auto; border:0px; text-align: center;">
+            <video poster="" autoplay controls muted loop playsinline height="70%" width="70%">
+              <source src="./static/video/exp_5.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="item" style="margin: 0px; overflow: auto; border:0px; text-align: center;">
+            <video poster="" autoplay controls muted loop playsinline height="70%" width="70%">
+              <source src="./static/video/exp_6.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+        </div>
+
+        <br />
+        <h3 class="title is-5" style="text-align:left">Video-driven Reenactment</h3>
+        <!-- <video poster="" autoplay controls muted loop playsinline height="90%" width="90%">
+          <source src="./static/video/self_1.mp4"
+                  type="video/mp4">
+        </video>
+        <video poster="" autoplay controls muted loop playsinline height="90%" width="90%">
+          <source src="./static/video/driven_5.mp4"
+                  type="video/mp4">
+        </video>
+        <br /> -->
+        <video poster="" autoplay controls muted loop playsinline height="90%" width="90%">
+          <source src="./static/video/self_2.mp4"
+                  type="video/mp4">
+        </video>
+        <video poster="" autoplay controls muted loop playsinline height="90%" width="90%">
+          <source src="./static/video/driven_1.mp4"
+                  type="video/mp4">
+        </video>
+        <br />
+        <video poster="" autoplay controls muted loop playsinline height="90%" width="90%">
+          <source src="./static/video/self_3.mp4"
+                  type="video/mp4">
+        </video>
+        <video poster="" autoplay controls muted loop playsinline height="90%" width="90%">
+          <source src="./static/video/driven_3.mp4"
+                  type="video/mp4">
+        </video>
+
+
+      </div>
+    </div>
+
+
+    <!-- Paper video. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <br />
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+
+          <!-- <iframe src="https://www.youtube.com/watch?v=at_42ekU0I0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> -->
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/at_42ekU0I0" 
+          title="YouTube video player" frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen>
+          </iframe>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{zhang2022fdnerf,
+      title={FDNeRF: Few-shot Dynamic Neural Radiance Fields for Face Reconstruction and Expression Editing},
+      author={Zhang, Jingbo and Li, Xiaoyu and Wan, Ziyu and Wang, Can and Liao, Jing},
+      journal={arXiv preprint arXiv:2208.05751},
+      year={2022}
+    }</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+
+    <div class="content has-text-centered">
+      <a class="icon-link"
+        href="https://arxiv.org/pdf/2208.05751.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" 
+        href="https://github.com/FDNeRF/FDNeRF" 
+        class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+
+            The <a href="https://github.com/nerfies/nerfies.github.io">source code</a> for the website 
+            was taken from Nerfies. We appreciate the authors sharing the templates with us.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+</body>
+</html>
