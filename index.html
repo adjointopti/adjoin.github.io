@@ -136,56 +136,13 @@
                 type="video/mp4">
       </video> -->
       <h2 class="subtitle has-text">
-        <span class="dnerf">FDNeRF</span>, a NeRF-based method for 3D face reconstruction 
-        with only few-shot dynamic input frames (e.g., 3), enable novel view synthesis, 
-        expression editing, and video-driven reenactment tasks.
+        
       </h2>
 
     </div>
   </div>
 </section>
 
-
-<section class="hero is-light is-small">
-  <div class="hero-body" style="background-color: white;">
-    <div class="container is-max-desktop">
-      <div id="results-carousel" class="carousel results-carousel">
-
-        <div class="item" style="margin: 0px; overflow: auto; border:0px; text-align: center;">
-          <video poster="" autoplay controls muted loop playsinline height="70%" width="70%">
-            <source src="./static/video/std1.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item" style="margin: 0px; overflow: auto; border:0px; text-align: center;">
-          <video poster="" autoplay controls muted loop playsinline height="70%" width="70%">
-            <source src="./static/video/std3.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item" style="margin: 0px; overflow: auto; border:0px; text-align: center;">
-          <video poster="" autoplay controls muted loop playsinline height="70%" width="70%">
-            <source src="./static/video/std6.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item" style="margin: 0px; overflow: auto; border:0px; text-align: center;">
-          <video poster="" autoplay controls muted loop playsinline height="70%" width="70%">
-            <source src="./static/video/std2.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item" style="margin: 0px; overflow: auto; border:0px; text-align: center;">
-          <video poster="" autoplay controls muted loop playsinline height="70%" width="70%">
-            <source src="./static/video/std5.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</section>
 
 
 
@@ -200,22 +157,22 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            We propose a Few-shot Dynamic Neural Radiance Field (FDNeRF), the first NeRF-based method 
-            capable of reconstruction and expression editing of 3D faces based on a small number of 
-            dynamic images. Unlike existing dynamic NeRFs that require dense images as input and can 
-            only be modeled for a single identity, our method enables face reconstruction across different 
-            persons with few-shot inputs. Compared to state-of-the-art few-shot NeRFs designed for modeling 
-            static scenes, the proposed FDNeRF accepts view-inconsistent dynamic inputs and supports 
-            arbitrary facial expression editing, i.e., producing faces with novel expressions beyond 
-            the input ones. To handle the inconsistencies between dynamic inputs, we introduce a 
-            well-designed conditional feature warping (CFW) module to perform expression conditioned 
-            warping in 2D feature space, which is also identity adaptive and 3D constrained. As a result, 
-            features of different expressions are transformed into the target ones. We then construct a 
-            radiance field based on these view-consistent features and use volumetric rendering to 
-            synthesize novel views of the modeled faces. Extensive experiments with quantitative and 
-            qualitative evaluation demonstrate that our method outperforms existing dynamic and few-shot 
-            NeRFs on both 3D face reconstruction and expression editing tasks. Our code and model will be 
-            available upon acceptance.
+            Due to inevitable noises introduced during scanning and quantization, 3D reconstruction 
+            via RGB-D sensors suffers from errors both in geometry and texture, leading to artifacts 
+            such as camera drifting, mesh distortion, texture ghosting, and blurriness. Given an 
+            imperfect reconstructed 3D model, most previous methods have focused on the refinement 
+            of either geometry, texture, or camera pose. Or different optimization schemes and 
+            objectives for optimizing each component have been used in previous joint optimization 
+            methods, forming a complicated system. In this paper, we propose a novel optimization 
+            approach based on differentiable rendering, which integrates the optimization of camera pose, 
+            geometry, and texture into a unified framework by enforcing consistency between the rendered 
+            results and the corresponding RGB-D inputs. Based on the unified framework, we introduce a 
+            joint optimization approach to fully exploit the inter-relationships between geometry, texture, 
+            and camera pose, and describe an adaptive interleaving strategy to improve optimization 
+            stability and efficiency. Using differentiable rendering, an image-level adversarial loss 
+            is applied to further improve the 3D model, making it more photorealistic. Experiments 
+            on synthetic and real data using quantitative and qualitative evaluation demonstrated 
+            the superiority of our approach in recovering both fine-scale geometry and high-fidelity texture.
           </p>
         </div>
       </div>
@@ -228,130 +185,19 @@
         <h2 class="title is-3">Pipline</h2>
         
         <div>
-          <img src="./static/images/pipeline_v4.png" alt="method" class="center">
+          <img src="./static/images/pipline.png" alt="method" class="center">
         </div>
         <div class="content has-text-justified">
           <p>
-            Overview of our FDNeRF. Given few-shot dynamic images, face tracking is implemented to 
-            estimate relevant expression parameters, camera poses, and intrinsic 
-            matrix in the preprocessing stage. In the CFW module, we employ feature encoding 
-            network to extract a deep feature volume for each image, and semantic 
-            mapping network to generate a motion descriptor based on source and target 
-            expression parameters. The descriptor is then used to guide the conditional warping network 
-            to produce warped feature volumes. During reconstruction, we project the 
-            query point to each image plane and extract aligned feature vectors. These vectors, 
-            along with the position and direction of the point, are fed into NeRF network to infer color 
-            and density. Finally, volumetric rendering is performed to synthesize novel view images.
+            Overview of our adaptive joint optimization method. The inputs include a set of RGB-D frames, 
+            estimated camera poses, and an initial imperfect 3D textured model produced by an existing 
+            reconstructing method. A differentiable renderer is adopted to produce rendered frames of 
+            the inputted camera poses. Then, a series of losses are employed to measure the consistency 
+            of the rendered and inputted frames, and the gradients are back-propagated to adaptively 
+            update camera pose, geometry, and texture. Finally, the corrected camera poses, refined 
+            geometry, and optimized texture are outputted.
           </p>
         </div>
-
-      </div>
-    </div>
-
-    <!-- Results. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="container is-max-desktop">
-        <br />
-        <h2 class="title is-3">Results</h2>
-
-        <h3 class="title is-5" style="text-align:left">3D Reconstruction</h3>
-        <div id="results-carousel" class="carousel results-carousel">
-          <div class="item" style="margin: 0px; overflow: auto; border:0px; text-align: center;">
-            <video poster="" autoplay controls muted loop playsinline height="70%" width="70%">
-              <source src="./static/video/nv3_1.mp4"
-                      type="video/mp4">
-            </video>
-          </div>
-          <div class="item" style="margin: 0px; overflow: auto; border:0px; text-align: center;">
-            <video poster="" autoplay controls muted loop playsinline height="70%" width="70%">
-              <source src="./static/video/nv3_2.mp4"
-                      type="video/mp4">
-            </video>
-          </div>
-          <div class="item" style="margin: 0px; overflow: auto; border:0px; text-align: center;">
-            <video poster="" autoplay controls muted loop playsinline height="70%" width="70%">
-              <source src="./static/video/nv3_3.mp4"
-                      type="video/mp4">
-            </video>
-          </div>
-          <div class="item" style="margin: 0px; overflow: auto; border:0px; text-align: center;">
-            <video poster="" autoplay controls muted loop playsinline height="70%" width="70%">
-              <source src="./static/video/nv3_4.mp4"
-                      type="video/mp4">
-            </video>
-          </div>
-          <div class="item" style="margin: 0px; overflow: auto; border:0px; text-align: center;">
-            <video poster="" autoplay controls muted loop playsinline height="70%" width="70%">
-              <source src="./static/video/nv3_5.mp4"
-                      type="video/mp4">
-            </video>
-          </div>
-        </div>
-
-        <br />
-        <h3 class="title is-5" style="text-align:left">Expression Editing</h3>
-        <div id="results-carousel" class="carousel results-carousel">
-          <div class="item" style="margin: 0px; overflow: auto; border:0px; text-align: center;">
-            <video poster="" autoplay controls muted loop playsinline height="70%" width="70%">
-              <source src="./static/video/exp_2.mp4"
-                      type="video/mp4">
-            </video>
-          </div>
-          <div class="item" style="margin: 0px; overflow: auto; border:0px; text-align: center;">
-            <video poster="" autoplay controls muted loop playsinline height="70%" width="70%">
-              <source src="./static/video/exp_3.mp4"
-                      type="video/mp4">
-            </video>
-          </div>
-          <div class="item" style="margin: 0px; overflow: auto; border:0px; text-align: center;">
-            <video poster="" autoplay controls muted loop playsinline height="70%" width="70%">
-              <source src="./static/video/exp_4.mp4"
-                      type="video/mp4">
-            </video>
-          </div>
-          <div class="item" style="margin: 0px; overflow: auto; border:0px; text-align: center;">
-            <video poster="" autoplay controls muted loop playsinline height="70%" width="70%">
-              <source src="./static/video/exp_5.mp4"
-                      type="video/mp4">
-            </video>
-          </div>
-          <div class="item" style="margin: 0px; overflow: auto; border:0px; text-align: center;">
-            <video poster="" autoplay controls muted loop playsinline height="70%" width="70%">
-              <source src="./static/video/exp_6.mp4"
-                      type="video/mp4">
-            </video>
-          </div>
-        </div>
-
-        <br />
-        <h3 class="title is-5" style="text-align:left">Video-driven Reenactment</h3>
-        <!-- <video poster="" autoplay controls muted loop playsinline height="90%" width="90%">
-          <source src="./static/video/self_1.mp4"
-                  type="video/mp4">
-        </video>
-        <video poster="" autoplay controls muted loop playsinline height="90%" width="90%">
-          <source src="./static/video/driven_5.mp4"
-                  type="video/mp4">
-        </video>
-        <br /> -->
-        <video poster="" autoplay controls muted loop playsinline height="90%" width="90%">
-          <source src="./static/video/self_2.mp4"
-                  type="video/mp4">
-        </video>
-        <video poster="" autoplay controls muted loop playsinline height="90%" width="90%">
-          <source src="./static/video/driven_1.mp4"
-                  type="video/mp4">
-        </video>
-        <br />
-        <video poster="" autoplay controls muted loop playsinline height="90%" width="90%">
-          <source src="./static/video/self_3.mp4"
-                  type="video/mp4">
-        </video>
-        <video poster="" autoplay controls muted loop playsinline height="90%" width="90%">
-          <source src="./static/video/driven_3.mp4"
-                  type="video/mp4">
-        </video>
-
 
       </div>
     </div>
@@ -364,13 +210,7 @@
         <h2 class="title is-3">Video</h2>
         <div class="publication-video">
 
-          <!-- <iframe src="https://www.youtube.com/watch?v=at_42ekU0I0"
-                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> -->
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/at_42ekU0I0" 
-          title="YouTube video player" frameborder="0" 
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-          allowfullscreen>
-          </iframe>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/z8KzDgk1Rhg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
         </div>
       </div>
@@ -384,11 +224,12 @@
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre><code>@article{zhang2022fdnerf,
-      title={FDNeRF: Few-shot Dynamic Neural Radiance Fields for Face Reconstruction and Expression Editing},
-      author={Zhang, Jingbo and Li, Xiaoyu and Wan, Ziyu and Wang, Can and Liao, Jing},
-      journal={arXiv preprint arXiv:2208.05751},
-      year={2022}
+    <pre><code>@article{zhang2022adaptive,
+      title={Adaptive Joint Optimization for 3D Reconstruction with Differentiable Rendering},
+      author={Zhang, Jingbo and Wan, Ziyu and Liao, Jing},
+      journal={IEEE Transactions on Visualization and Computer Graphics},
+      year={2022},
+      publisher={IEEE}
     }</code></pre>
   </div>
 </section>
